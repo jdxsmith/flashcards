@@ -68,6 +68,6 @@ describe('Round', function() {
       
     round.takeTurn('sea otter');
       
-    expect(round.takeTurn('sea otter')).to.deep.equal('Correct!');
+    expect(round.takeTurn()).to.deep.equal('Correct!');
   });
 }); 
