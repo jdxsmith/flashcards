@@ -17,10 +17,10 @@ class Turn {
         }
     }
     giveFeedback() {
-        if (this.guess === this.card.correctAnswer) {
-            return 'Correct!';
+        if (this.evaluateGuess() === true) {
+            return 'Correct!'
         } else {
-            return 'Incorrect!';
+            return 'Incorrect!'
         }
     }
 }

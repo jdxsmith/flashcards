@@ -1,9 +1,10 @@
 const chai = require('chai');
 const expect = chai.expect;
 
-const Card = require('../src/Card');
-const Deck = require('../src/Deck');
 const Round = require('../src/Round');
+const Deck = require('../src/Deck');
+const Card = require('../src/Card');
+const Turn = require('../src/Turn');
 
 describe('Round', function() {
 
@@ -66,8 +67,37 @@ describe('Round', function() {
     const deck = new Deck([card1, card2, card3]);
     const round = new Round(deck);
       
-    round.takeTurn('sea otter');
+    let test = round.takeTurn('sea otter');
+    let test2 = round.takeTurn('river otter');
       
-    expect(round.takeTurn()).to.deep.equal('Correct!');
+    expect(test).to.deep.equal('Correct!');
+    expect(test2).to.deep.equal('Incorrect!');
+  });
+    
+  it('should calculate percent correct', function() {
+    const card1 = new Card(1, 'What is Robbie\'s favorite animal', ['sea otter', 'pug', 'capybara'], 'sea otter');
+    const card2 = new Card(14, 'What organ is Khalid missing?', ['spleen', 'appendix', 'gallbladder'], 'gallbladder');
+    const card3 = new Card(12, 'What is Travis\'s middle name?', ['Lex', 'William', 'Fitzgerald'], 'Fitzgerald');
+    const deck = new Deck([card1, card2, card3]);
+    const round = new Round(deck);
+      
+    let test = round.takeTurn('sea otter');
+    let test2 = round.takeTurn('river otter');
+      
+    expect(round.calculatePercentCorrect()).to.deep.equal(50);
+  });
+    
+  it('should end round', function() {
+    const card1 = new Card(1, 'What is Robbie\'s favorite animal', ['sea otter', 'pug', 'capybara'], 'sea otter');
+    const card2 = new Card(14, 'What organ is Khalid missing?', ['spleen', 'appendix', 'gallbladder'], 'gallbladder');
+    const card3 = new Card(12, 'What is Travis\'s middle name?', ['Lex', 'William', 'Fitzgerald'], 'Fitzgerald');
+    const deck = new Deck([card1, card2, card3]);
+    const round = new Round(deck);
+      
+    let test = round.takeTurn('sea otter');
+    let test2 = round.takeTurn('river otter');
+      
+    expect(round.calculatePercentCorrect()).to.deep.equal(50);
+    expect(round.endRound()).to.deep.equal(console.log('**Round over!** You answered 50% of the questions correctly!'));
   });
 }); 
